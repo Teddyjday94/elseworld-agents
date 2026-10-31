@@ -57,7 +57,7 @@ Shopify Payments takes about 2.9% + $0.30. Printify shipping (roughly $4–9 per
 - Playwright and Chromium for auditing the live storefront.
 
 ## Reporting to Elsewhere HQ (every run)
-Elsewhere HQ is a game view of both crews. It reads Supabase project `taskvfzqgpqxpdifmxru`, schema `ops` (use `mcp__Supabase__execute_sql`). At the end of each run:
+Elsewhere HQ (https://claude.ai/artifact/TaYyCgL2E7uiK7DgjB71iM) is a game view of both crews. It reads Supabase project `taskvfzqgpqxpdifmxru`, schema `ops` (use `mcp__Supabase__execute_sql`). At the end of each run:
 1. Update your row in `ops.agents` with `last_run = current_date`, `last_result = '<one plain sentence>'`, and `next_run = '<when>'`.
 2. Add one row to `ops.activity (agent, action)`, using your display name and one sentence on what you did.
 3. Queue anything for Thomas in `ops.shop_tasks (agent, kind, item, cost, priority)`:

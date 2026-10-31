@@ -2,7 +2,7 @@
 
 This is the agent crew that runs Elsewhere Supply Co., a print-on-demand apparel store on Shopify. Printify prints and ships each order.
 
-**Elsewhere HQ** is a game view of the crew, in the same Aether Archipelago art as Sidequest HQ: https://claude.ai/artifact/ELSEWHERE_HQ_URL
+**Elsewhere HQ** is a game view of the crew, in the same Aether Archipelago art as Sidequest HQ: https://claude.ai/artifact/TaYyCgL2E7uiK7DgjB71iM
 
 ## Two crews, one store
 Some Elsewhere work already runs inside the **Sidequest crew** (`Teddyjday94/sidequest-commandcenter`):
