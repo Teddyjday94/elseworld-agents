@@ -53,4 +53,12 @@ Open Claude Code in this repo and ask in plain words, for example:
 - "Have the Catalog Keeper check the store"
 - "Shop Treasurer, what should our Black Friday offer be?"
 
-They aren't on a schedule yet. Ask Claude to set them up as scheduled tasks when you're ready.
+## Schedule (Claude scheduled tasks, cloud, Central time)
+| Scheduled task | When | Agents |
+|---|---|---|
+| Elsewhere: Store Chief + Order Desk | Weekdays 11:41 AM | Order Desk, then Store Chief |
+| Elsewhere: Weekly crew | Wednesdays 2:29 PM | Catalog Keeper, Conversion Doctor, Shop Treasurer, Growth Marketer |
+
+Each run starts a fresh cloud session, clones this repo (read only), follows `CLAUDE.md` and the agent files, and reports to `ops`. It also sends a short summary to Thomas's phone.
+
+The live prompts are stored in the scheduled tasks themselves. If you change an agent file here, the next run picks it up automatically. Each task needs the **Shopify, Supabase and Gmail connectors** attached in claude.ai.

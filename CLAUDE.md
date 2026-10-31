@@ -65,7 +65,7 @@ Elsewhere HQ (https://claude.ai/artifact/TaYyCgL2E7uiK7DgjB71iM) is a game view 
    - `priority` 1 means this week.
    - Before inserting, check for an open row with the same meaning.
    - Close rows you've resolved by setting `status = 'done'` and `closed_at = now()`.
-4. Write your report file in `reports/`.
+4. Interactive runs: write your report file in `reports/`. Scheduled runs work from a read-only clone, so they skip the file; `ops` and the run's final message are the record.
 
 Touch only the `ops` schema, and never `public`, which is Thomas's live client portal. Don't write to Sidequest tables such as leads or todos.
 
