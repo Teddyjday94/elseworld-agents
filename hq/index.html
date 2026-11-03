@@ -214,6 +214,63 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
 .chat .msg { padding: 7px 10px; border-radius: 4px 12px 12px 12px; background: rgba(5, 10, 34, .55); border: 1px solid rgba(110, 140, 220, .18); margin-top: 3px; }
 @media (prefers-reduced-motion: reduce) { .bubble, .bubble.out { animation: none; } }
 .empty { color: var(--faint); font-size: 13px; margin: 0; }
+/* detail drawer: every card opens the full story behind it */
+.drawer-bg { position: fixed; inset: 0; z-index: 50; background: rgba(3, 6, 20, .74); backdrop-filter: blur(3px); display: grid; place-items: center; padding: 16px; }
+.drawer-bg[hidden] { display: none; }
+.drawer { width: min(760px, 100%); max-height: calc(100dvh - 32px); overflow: auto; padding: 24px 20px 18px; display: grid; gap: 14px; box-sizing: border-box; }
+.drawer .x { top: 10px; right: 10px; }
+.drawer > .mini { justify-self: start; margin-right: 40px; }
+.dhead { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; padding-right: 30px; }
+.dhead .av { width: 52px; height: 52px; border-radius: 12px; background: rgba(5, 10, 34, .6) 0 0/600% 300% no-repeat; border: 1px solid var(--line); }
+.dhead .av.ic { background-size: 72%; background-position: center; }
+.dhead h3 { margin: 0; font: 700 19px/1.2 var(--title); letter-spacing: .03em; }
+.dhead .cls { color: var(--muted); font-size: 13px; }
+.dmeta { display: flex; flex-wrap: wrap; gap: 6px; }
+.dmeta span { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: rgba(5, 10, 34, .6); border: 1px solid var(--line); color: var(--muted); }
+.dmeta span.hot { color: #2a1a00; background: linear-gradient(180deg, #ffe07a, #e9a92a); border-color: var(--gold-hi); }
+.dmeta span.late { color: #fff; background: rgba(255, 95, 134, .25); border-color: var(--rose); }
+.dmeta span.ok { color: #fff; background: rgba(79, 227, 160, .2); border-color: var(--green); }
+.field { display: grid; gap: 5px; }
+.field > b { font: 800 11px var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--gold-hi); display: flex; align-items: center; gap: 8px; }
+.field > b .mini { margin-left: auto; }
+.txt { margin: 0; padding: 10px 12px; border-radius: 10px; background: rgba(5, 10, 34, .6); border: 1px solid rgba(110, 140, 220, .2); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; line-height: 1.55; }
+.txt.big { font-size: 16px; font-weight: 700; }
+.dacts { display: flex; flex-wrap: wrap; gap: 8px; }
+.dacts .btn { font-size: 14px; padding: 7px 14px; }
+.btn.green { background: linear-gradient(180deg, #5ef0b0, #1d9e68); }
+.btn.rose { background: linear-gradient(180deg, #ff86a3, #c93a62); }
+.btn.ghost { background: rgba(5, 10, 34, .6); border-color: var(--line); box-shadow: none; }
+.btn:disabled { opacity: .5; cursor: default; }
+.mini { all: unset; cursor: pointer; font: 700 11px var(--ui); letter-spacing: .03em; color: var(--ink); padding: 2px 10px; border-radius: 999px; border: 1px solid var(--gold-2); background: rgba(5, 10, 34, .55); }
+.mini:hover, .mini:focus-visible { border-color: var(--gold-hi); }
+textarea.in { width: 100%; box-sizing: border-box; min-height: 64px; resize: vertical; padding: 10px 12px; border-radius: 10px; background: rgba(5, 10, 34, .7); border: 1px solid var(--line); color: var(--ink); font: 500 14px/1.45 var(--ui); }
+textarea.in:focus { outline: none; border-color: var(--gold); }
+.ans:empty { display: none; }
+.dlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dlist button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center; padding: 9px 11px; border-radius: 10px; background: rgba(5, 10, 34, .55); border: 1px solid rgba(110, 140, 220, .2); font-size: 13px; line-height: 1.35; color: var(--ink); }
+.dlist button:hover, .dlist button:focus-visible { border-color: var(--gold); }
+.dlist img { width: 28px; height: 28px; object-fit: contain; }
+.dlist .who { font-weight: 700; } .dlist .sub2 { color: var(--muted); }
+.dlist .tagr { font: 800 11px var(--ui); color: var(--gold-hi); white-space: nowrap; }
+.dlist .tagr.late { color: var(--rose); }
+.thread { display: grid; gap: 8px; }
+.thread .q, .thread .a { padding: 8px 11px; border-radius: 10px; font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.thread .q { background: rgba(155, 123, 255, .16); border: 1px solid rgba(155, 123, 255, .4); justify-self: end; max-width: 88%; }
+.thread .a { background: rgba(5, 10, 34, .6); border: 1px solid rgba(110, 140, 220, .2); max-width: 88%; }
+.thread small { display: block; color: var(--faint); font-size: 11px; margin-top: 3px; }
+.toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 60; padding: 10px 16px; border-radius: 10px; background: linear-gradient(180deg, #1b2760, #0b1233); border: 1.5px solid var(--gold-2); box-shadow: 0 8px 24px rgba(0, 0, 0, .5); font-weight: 700; font-size: 14px; max-width: calc(100% - 32px); }
+.toast[hidden] { display: none; }
+.toast.bad { border-color: var(--rose); }
+button.pill { cursor: pointer; color: var(--ink); font-family: var(--ui); }
+button.pill:hover, button.pill:focus-visible { border-color: var(--gold-hi); outline: none; }
+.quests li.tap, .moves li.tap, .ticker li.tap, .chat li.tap { cursor: pointer; }
+.quests li.tap:hover, .moves li.tap:hover, .quests li.tap:focus-visible, .moves li.tap:focus-visible { border-color: var(--gold); outline: none; }
+.ticker li.tap:hover b, .chat li.tap:hover .msg { text-decoration: underline; text-decoration-color: var(--gold-2); }
+.moves li.over .pt { color: var(--rose); }
+.inspect .more { display: flex; flex-wrap: wrap; gap: 8px; grid-column: 1 / -1; }
+.inspect .more .btn { font-size: 13px; padding: 6px 12px; }
+.hint { font-size: 12px; color: var(--faint); margin: -4px 0 8px; text-align: center; }
+
 @media (prefers-reduced-motion: reduce) { .isle .art, .cloud, .rock, .bang, .zz, .paths .flow, .bot { animation: none !important; } }
 </style>
 </head>
@@ -229,8 +286,8 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
       <span class="pill" title="Net sales, last 30 days (Shopify)"><img src="assets/ico-coins.webp" alt=""><span id="r-gold">$0</span></span>
       <span class="pill" title="Store visits, last 7 days (Shopify)"><img src="assets/ico-explore.webp" alt=""><span id="r-visits">0</span><small>visits</small></span>
       <span class="pill" title="Visits that added to cart, last 7 days"><img src="assets/ico-energy.webp" alt=""><span id="r-carts">0</span><small>carts</small></span>
-      <span class="pill" title="Shirt ideas waiting for your Like or Pass"><img src="assets/ico-crystals.webp" alt=""><span id="r-ideas">0</span><small>ideas</small></span>
-      <span class="pill" id="r-you-pill" title="Approvals and clicks only you can do"><img src="assets/ico-strategy.webp" alt=""><span id="r-you">0</span><small>for you</small></span>
+      <button type="button" class="pill" id="r-ideas-pill" title="Shirt ideas waiting for your Like or Pass. Tap to see them."><img src="assets/ico-crystals.webp" alt=""><span id="r-ideas">0</span><small>ideas</small></button>
+      <button type="button" class="pill" id="r-you-pill" title="Approvals and clicks only you can do. Tap to work through them."><img src="assets/ico-strategy.webp" alt=""><span id="r-you">0</span><small>for you</small></button>
     </div>
   </header>
 
@@ -282,27 +339,37 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
   <div class="cards">
     <section class="frame gem card"><h2>Crew Chatter</h2><div class="in"><ul class="chat" id="chat"><li class="empty">The crew talks here as work changes hands.</li></ul></div></section>
     <section class="frame gem card"><h2>Weekly Raid</h2><div class="in" id="raid"></div></section>
-    <section class="frame gem card"><h2>Posts to Film</h2><div class="in"><ol class="moves" id="moves"></ol></div></section>
+    <section class="frame gem card"><h2>Posts to Film</h2><p class="hint">Tap a post for the full script and caption.</p><div class="in"><ol class="moves" id="moves"></ol></div></section>
     <section class="frame gem card"><h2>Shop Lessons</h2><div class="in" id="lessons"></div></section>
-    <section class="frame gem card"><h2>Quest Log</h2><div class="in"><ul class="quests" id="quests"></ul></div></section>
+    <section class="frame gem card"><h2>Quest Log</h2><p class="hint">Tap a quest to approve it, finish it or say no.</p><div class="in"><ul class="quests" id="quests"></ul></div></section>
     <section class="frame gem card"><h2>The Crew</h2><div class="in"><div class="crew" id="crew"></div></div></section>
     <section class="frame gem card"><h2>Achievements</h2><div class="in"><div class="badges" id="badges"></div></div></section>
-    <section class="frame gem card"><h2>Island Log</h2><div class="in"><ul class="ticker" id="ticker"><li class="empty">Waiting for the crew to report in.</li></ul></div></section>
+    <section class="frame gem card"><h2>Island Log</h2><p class="hint">Tap a line to open that agent.</p><div class="in"><ul class="ticker" id="ticker"><li class="empty">Waiting for the crew to report in.</li></ul></div></section>
   </div>
 </div>
+<div class="drawer-bg" id="drawer-bg" hidden><section class="drawer frame gem" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-title"></section></div>
+<div class="toast" id="toast" role="status" hidden></div>
 
 <script>
 (() => {
   const SB = 'Supabase', PROJECT = 'taskvfzqgpqxpdifmxru', SHOP = 'Shopify';
   const IDEA_BOARD = 'https://claude.ai/artifact/MMqakwJ9ANhygv7aN9rfi4';
+  const CCR = 'Claude Code Remote';
+  // The two Elsewhere scheduled tasks. Run now fires the one that owns the agent.
+  const RUNS = { daily: { id: 'trig_01CkaupUtMde8m8udkHuEEEC', label: 'daily run' }, weekly: { id: 'trig_01K6P1ZZhinkrRVcw6ACENed', label: 'weekly run' } };
+  const RUN_OF = { shopchief: 'daily', orders: 'daily', catalog: 'weekly', cro: 'weekly', shopfinance: 'weekly', growth: 'weekly' };
   const CREW_IDS = ['trends', 'launcher', 'socialplan', 'blogger', 'shopchief', 'growth', 'cro', 'catalog', 'orders', 'shopfinance'];
   const CREW_NAMES = ['trend scout', 'shop designer', 'product launcher', 'social planner', 'blog writer', 'store chief', 'growth marketer', 'conversion doctor', 'catalog keeper', 'order desk', 'shop treasurer'];
   const names = CREW_NAMES.map((n) => `'${n}'`).join(',');
   const SQL = `select json_build_object(
     'agents', (select json_agg(a) from (select id, name, role, status, schedule, next_run, last_run, last_result, hands_to from ops.agents where id in (${CREW_IDS.map((i) => `'${i}'`).join(',')})) a),
     'acts', (select json_agg(x) from (select lower(agent) as agent, count(*) as n, max(at) as last_at from ops.activity where lower(agent) in (${names}) group by 1) x),
-    'feed', (select json_agg(x) from (select agent, action, at from ops.activity where lower(agent) in (${names}) order by at desc limit 14) x),
-    'tasks', (select json_agg(x) from (select id, agent, kind, item, cost, priority from ops.shop_tasks where status = 'open' order by priority, created_at limit 10) x),
+    'feed', (select json_agg(x) from (select agent, action, at from ops.activity where lower(agent) in (${names}, 'you') order by at desc limit 60) x),
+    'tasks', (select json_agg(x) from (select id, agent, kind, item, cost, priority, status, created_at, thomas_note from ops.shop_tasks where status = 'open' order by priority, created_at limit 30) x),
+    'tasks_closed', (select json_agg(x) from (select id, agent, kind, item, cost, priority, status, created_at, closed_at, thomas_note from ops.shop_tasks where status <> 'open' order by closed_at desc nulls last limit 12) x),
+    'notes', (select json_agg(x) from (select id, agent, note, status, answer, created_at, answered_at from ops.shop_notes order by created_at desc limit 40) x),
+    'postlist', (select json_agg(x) from (select id, day, platform, product, format, hook, script, caption, hashtags, status, posted_at from ops.shop_posts where day >= (now() at time zone 'America/Chicago')::date - 14 order by day, id limit 40) x),
+    'idealist', (select json_agg(x) from (select id, week, slogan, concept, theme, why_now, risk, garment, colors, design_brief, listing_title, listing_description, price, score, status, thomas_note, design_requested, design_preview_url from ops.shop_ideas order by (coalesce(status,'') in ('','new')) desc, id desc limit 30) x),
     'tasks_open', (select count(*) from ops.shop_tasks where status = 'open' and kind <> 'fyi'),
     'tasks_done', (select count(*) from ops.shop_tasks where status in ('done','approved')),
     'ideas', (select count(*) from ops.shop_ideas),
@@ -314,8 +381,7 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     'posts', (select count(*) from ops.shop_posts),
     'posted', (select count(*) from ops.shop_posts where status = 'posted'),
     'posted_7d', (select count(*) from ops.shop_posts where posted_at > now() - interval '7 days'),
-    'upcoming', (select json_agg(x) from (select day, platform, product, hook from ops.shop_posts where status = 'planned' and day >= (now() at time zone 'America/Chicago')::date order by day, id limit 5) x),
-    'upcoming_n', (select count(*) from ops.shop_posts where status = 'planned' and day >= (now() at time zone 'America/Chicago')::date),
+    'upcoming_n', (select count(*) from ops.shop_posts where status = 'planned' and day >= (now() at time zone 'America/Chicago')::date - 7),
     'launches', (select count(*) from ops.shop_launches),
     'launches_7d', (select count(*) from ops.shop_launches where launched_at > now() - interval '7 days'),
     'articles', (select count(*) from ops.shop_articles),
@@ -436,6 +502,7 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
         const row = rowsFrom(sb.value.payload)[0]; d = { ...(row.hq || row) };
         d._acts = {};
         (d.acts || []).forEach((x) => { const id = ALIAS[x.agent] || x.agent; const cur = d._acts[id] || { n: 0, last_at: null }; cur.n += Number(x.n) || 0; if (!cur.last_at || new Date(x.last_at) > new Date(cur.last_at)) cur.last_at = x.last_at; d._acts[id] = cur; });
+        ['tasks', 'tasks_closed', 'notes', 'postlist', 'idealist', 'feed', 'agents'].forEach((k) => { if (!Array.isArray(d[k])) d[k] = []; });
         ['tasks_open', 'tasks_done', 'ideas', 'ideas_waiting', 'ideas_marked', 'ideas_made', 'design_queue', 'designs', 'posts', 'posted', 'posted_7d', 'upcoming_n', 'launches', 'launches_7d', 'articles'].forEach((k) => { d[k] = Number(d[k]) || 0; });
       } catch (err) { probs.push(explain(err, 'Supabase')); }
     } else probs.push(explain(sb.reason, 'Supabase'));
@@ -481,7 +548,7 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     const tag = el('span', 'tag'); tag.append(img('ico-' + a.icon), el('span', 'n', a.room), el('em', '', ''), el('i', 'st sleep'));
     b.append(img('isl-' + a.isle, 'art'), tag);
     b.setAttribute('aria-label', a.room);
-    b.addEventListener('click', () => (a.id === 'owner' ? (scrollTo$('quests')) : select(a.id)));
+    b.addEventListener('click', () => (a.id === 'owner' ? openTasks() : select(a.id)));
     map.append(b);
     const parts = { b, tag };
     if (a.bot) {
@@ -544,7 +611,10 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     colA.append(head, el('span', 'chip ' + st, stateWord(st)), xl);
     colB.append(rows);
     if (ag.last_result) colB.append(el('p', 'quote', ag.last_result));
-    box.append(close, colA, colB);
+    const more = el('div', 'more');
+    more.append(actBtn('Open full details', 'yellow', () => openAgent(a.id)), actBtn('Send a note', 'violet', () => openAgent(a.id, true)));
+    if (RUN_OF[a.id]) more.append(actBtn('Run now', 'blue', () => runNow(a.id)));
+    box.append(close, colA, colB, more);
   }
 
   /* ---------- side and cards ---------- */
@@ -560,25 +630,25 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     $('p-lv').textContent = L.lv; $('p-xp').textContent = `${fmt(L.xp)} / ${fmt(L.hi)} XP`; setBar('p-bar', L.pct);
   }
 
-  function missionCard(agentId, icon, label, text, cls) {
+  function missionCard(agentId, icon, label, text, cls, open) {
     const b = el('button', 'mcard ' + cls + (selected === agentId ? ' on' : '')); b.type = 'button';
     const t = el('span'); t.append(el('small', '', label), el('span', '', text));
     b.append(img('ico-' + icon), t);
-    b.addEventListener('click', () => (agentId === 'owner' ? scrollTo$('quests') : (selected === agentId || select(agentId))));
+    b.addEventListener('click', () => (open ? open() : agentId === 'owner' ? openTasks() : (selected === agentId || select(agentId))));
     return b;
   }
   function renderMission() {
     const fill = (id, items, n, empty) => { const box = $('m-' + id); box.replaceChildren(); $('n-' + id).textContent = data ? n : 0; if (!items.length) box.append(el('div', 'mempty', data ? empty : 'Loading.')); items.forEach((x) => box.append(x)); if (data && n > items.length) box.append(el('div', 'mempty', `and ${n - items.length} more`)); };
     const d = data || {};
     const queued = [];
-    if (d.design_queue) queued.push(missionCard('trends', 'build', 'Shop Designer', `${d.design_queue} design${d.design_queue === 1 ? '' : 's'} you asked for`, 'q'));
-    if (d.upcoming_n) queued.push(missionCard('socialplan', 'energy', 'Social Planner', `${d.upcoming_n} post${d.upcoming_n === 1 ? '' : 's'} planned to film`, 'q'));
+    if (d.design_queue) queued.push(missionCard('trends', 'build', 'Shop Designer', `${d.design_queue} design${d.design_queue === 1 ? '' : 's'} you asked for`, 'q', openIdeas));
+    if (d.upcoming_n) queued.push(missionCard('socialplan', 'energy', 'Social Planner', `${d.upcoming_n} post${d.upcoming_n === 1 ? '' : 's'} planned to film`, 'q', openPosts));
     fill('q', queued.slice(0, 2), (d.design_queue ? 1 : 0) + (d.upcoming_n ? 1 : 0), 'Nothing waiting.');
     const working = AGENTS.filter((a) => state(a) === 'work');
     fill('w', working.slice(0, 2).map((a) => missionCard(a.id, a.icon, a.room, a.stat(d), 'w')), working.length, 'Everyone is between shifts.');
     const late = AGENTS.filter((a) => state(a) === 'late');
     const asks = (d.tasks || []).filter((t) => t.kind !== 'fyi');
-    const rev = [...late.map((a) => missionCard(a.id, a.icon, a.room, 'Missed its last run', 'r')), ...asks.slice(0, Math.max(0, 2 - late.length)).map((x) => missionCard('owner', QICON[x.kind], x.kind === 'approve' ? 'Approve' : 'For you', x.item, 'r'))];
+    const rev = [...late.map((a) => missionCard(a.id, a.icon, a.room, 'Missed its last run', 'r')), ...asks.slice(0, Math.max(0, 2 - late.length)).map((x) => missionCard('owner', QICON[x.kind], x.kind === 'approve' ? 'Approve' : 'For you', x.item, 'r', () => openTask(x.id)))];
     fill('r', rev, (d.tasks_open || 0) + late.length, 'Nothing needs you.');
   }
 
@@ -603,7 +673,7 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     const q = (data && data.tasks) || [];
     if (!q.length) { ul.append(el('li', 'empty', data ? 'Board is clear. Nice work.' : 'Loading quests.')); return; }
     q.forEach((t) => {
-      const li = el('li', t.priority === 1 ? 'p1' : '');
+      const li = el('li', 'tap' + (t.priority === 1 ? ' p1' : '')); tapify(li, () => openTask(t.id), 'Open quest: ' + t.item);
       const ag = AGENTS.find((a) => a.id === t.agent);
       const mid = el('div'); mid.append(el('div', 'who', (ag ? ag.room : t.agent) + (t.kind === 'approve' ? ' · approve' : t.kind === 'fyi' ? ' · note' : '')), el('div', '', t.item + (t.cost ? ` (${t.cost})` : '')));
       li.append(img('ico-' + (QICON[t.kind] || 'tasks')), mid, el('span', 'reward', '+' + (REWARD[t.kind] || 20)));
@@ -611,11 +681,19 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     });
   }
 
+  const openPostsDue = () => ((data && data.postlist) || []).filter((x) => x.status === 'planned');
   function renderMoves() {
     const ol = $('moves'); ol.replaceChildren();
-    const m = (data && data.upcoming) || [];
+    const m = openPostsDue().slice(0, 5);
     if (!m.length) { ol.append(el('li', 'empty', data ? 'No posts planned yet. The Social Planner writes next week’s on Sunday.' : 'Loading.')); return; }
-    m.forEach((x) => { const li = el('li'); const mid = el('div'); mid.append(el('div', 'who', `${x.platform || 'Post'} · ${x.product || ''}`), el('div', 'mv', x.hook || '')); li.append(mid, el('span', 'pt', dayCT(x.day))); ol.append(li); });
+    m.forEach((x) => {
+      const over = String(x.day).slice(0, 10) < todayStr();
+      const li = el('li', 'tap' + (over ? ' over' : '')); tapify(li, () => openPost(x.id), 'Open post: ' + (x.hook || ''));
+      const mid = el('div'); mid.append(el('div', 'who', `${x.platform || 'Post'} · ${x.product || ''}`), el('div', 'mv', x.hook || ''));
+      li.append(mid, el('span', 'pt', over ? 'Late · ' + dayCT(x.day) : dayCT(x.day))); ol.append(li);
+    });
+    const left = openPostsDue().length - m.length;
+    if (left > 0) { const li = el('li', 'tap'); tapify(li, openPosts, 'See all planned posts'); li.append(el('div', 'mv', `and ${left} more planned. Tap to see them all.`)); ol.append(li); }
   }
   function renderLessons() {
     const box = $('lessons'); box.replaceChildren();
@@ -664,14 +742,16 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
 
   function renderTicker() {
     const ul = $('ticker'); ul.replaceChildren();
-    const f = (data && data.feed) || [];
+    const f = ((data && data.feed) || []).slice(0, 14);
     if (!f.length) { ul.append(el('li', 'empty', data ? 'Nothing in the log yet.' : 'Waiting for the crew to report in.')); return; }
     f.forEach((r) => {
-      const li = el('li'); const d = new Date(r.at);
+      const who0 = ALIAS[String(r.agent).toLowerCase()] || r.agent;
+      const li = el('li', AGENTS.some((a) => a.id === who0) ? 'tap' : ''); const d = new Date(r.at);
+      if (li.className) tapify(li, () => { if (selected !== who0) select(who0); $('inspect').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, 'Open ' + r.agent);
       const tm = el('time', '', timeCT(d)); tm.dateTime = r.at;
       const txt = el('div'); const who = ALIAS[String(r.agent).toLowerCase()] || r.agent;
       const ag = AGENTS.find((a) => a.id === who);
-      txt.append(el('b', '', (ag ? ag.room : r.agent) + ': '), document.createTextNode(r.action));
+      txt.append(el('b', '', (who === 'you' ? 'You' : ag ? ag.room : r.agent) + ': '), document.createTextNode(r.action));
       li.append(tm, txt); ul.append(li);
     });
   }
@@ -679,20 +759,25 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
   /* ---------- crew chatter ---------- */
   // Every line is built from live numbers or the agent's own log.
   const agentRow = (id) => (data && (data.agents || []).find((x) => x.id === id)) || {};
+  const clip = (t, n) => (String(t).length > n ? String(t).slice(0, n - 1).replace(/[\s,.;:]+\S*$/, '') + '…' : String(t));
   function buildScript() {
     const d = data; if (!d) return [];
     const out = [];
-    const say = (from, to, text, reply) => out.push({ from, to, text, reply });
+    const say = (from, to, text, reply, open) => out.push({ from, to, text, reply, open });
     const shop = d.shopOk;
-    say('trends', 'owner', d.ideas_waiting ? `${fmt(d.ideas_waiting)} shirt idea${d.ideas_waiting === 1 ? '' : 's'} on the Idea Board for your Like or Pass.` : `${fmt(d.ideas)} ideas so far. New ones land Sunday night.`, '');
+    say('trends', 'owner', d.ideas_waiting ? `${fmt(d.ideas_waiting)} shirt idea${d.ideas_waiting === 1 ? '' : 's'} waiting for your Like or Pass. Tap me to see them.` : `${fmt(d.ideas)} ideas so far. New ones land Sunday night.`, '', openIdeas);
     say('trends', 'launcher', 'When Thomas makes one of my ideas, it’s yours to finish.', `Ready. ${fmt(d.launches)} listings finished so far.`);
     say('launcher', 'catalog', 'New listings are done. Can you check they all reached Shopify?', (d.tasks || []).some((t) => t.agent === 'catalog') ? 'Checked. A few fixes are on Thomas’s quest log.' : 'Checked. Everything lines up.');
-    say('socialplan', 'growth', `${fmt(d.upcoming_n)} posts planned ahead, ${fmt(d.posted_7d)} went out this week.`, shop ? `Thanks. ${fmt(d.visits7)} visits came in this week. I’ll see which posts sent them.` : 'Thanks. I’ll match them to visits once Shopify answers.');
+    const nextPost = openPostsDue()[0];
+    if (nextPost) say('socialplan', 'owner', `Next up: ${nextPost.platform}, “${clip(nextPost.hook || '', 80)}” Tap for the full script.`, '', () => openPost(nextPost.id));
+    say('socialplan', 'growth', `${fmt(d.upcoming_n)} posts planned, ${fmt(d.posted_7d)} went out this week.`, shop ? `Thanks. ${fmt(d.visits7)} visits came in this week. I’ll see which posts sent them.` : 'Thanks. I’ll match them to visits once Shopify answers.');
     say('blogger', 'growth', `${fmt(d.articles)} blog post${d.articles === 1 ? '' : 's'} live for search.`, 'Good. I’ll pin them on Pinterest too.');
     if (shop) say('growth', 'cro', `${fmt(d.visits7)} visits this week.`, d.visits7 ? `${fmt(d.carts7)} of them added to cart and ${fmt(d.checkouts7)} reached checkout. I’m on the product pages.` : 'Send me some and I’ll make them count.');
     say('orders', 'owner', shop ? (d.orders30 ? `${fmt(d.orders30)} order${d.orders30 === 1 ? '' : 's'} this month. I’m watching Printify for delays.` : 'No orders yet. The moment one lands I track it through Printify.') : 'Waiting on Shopify to see orders.', '');
     say('shopfinance', 'growth', 'Tees net about $12 and hoodies about $14 before shipping. Keep any ad cost per sale under that.', 'Noted. No ads until a design shows it can sell.');
-    say('shopchief', 'owner', d.tasks_open ? `Thomas, ${fmt(d.tasks_open)} thing${d.tasks_open === 1 ? ' needs' : 's need'} you. They’re in the Quest Log.` : 'Nothing waiting on you right now, Thomas.', '');
+    say('shopchief', 'owner', d.tasks_open ? `Thomas, ${fmt(d.tasks_open)} thing${d.tasks_open === 1 ? ' needs' : 's need'} you. Tap me to work through them.` : 'Nothing waiting on you right now, Thomas.', '', openTasks);
+    (d.notes || []).filter((n) => n.status === 'answered' && n.answered_at && Date.now() - new Date(n.answered_at).getTime() < 3 * 864e5).slice(0, 2)
+      .forEach((n) => say(n.agent, 'owner', 'Answered your note: ' + clip(n.answer, 110), '', () => openAgent(n.agent)));
     AGENTS.filter((a) => state(a) === 'late').forEach((a) => say(a.id, 'owner', 'I missed my last run. Can you check my schedule?', ''));
     return out;
   }
@@ -727,10 +812,11 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     requestAnimationFrame(step);
   }
   function logChat(from, to, text) {
-    chatLog.unshift({ from, to, text, at: new Date() }); chatLog.length = Math.min(chatLog.length, 12);
+    chatLog.unshift({ from, to, text, at: new Date(), open: arguments[3] }); chatLog.length = Math.min(chatLog.length, 12);
     const ul = $('chat'); ul.replaceChildren();
     chatLog.forEach((m) => {
-      const a = byId(m.from), b = byId(m.to), li = el('li');
+      const a = byId(m.from), b = byId(m.to), li = el('li', 'tap');
+      tapify(li, m.open || (() => (a.id === 'owner' ? openTasks() : openAgent(a.id))), 'Open: ' + m.text);
       const av = el('div', 'av' + (a.bot ? '' : ' nx')); av.style.backgroundImage = `url(${A}${a.bot ? 'sprite-' + a.bot : 'isl-' + a.isle}.webp)`;
       const body = el('div'); const hd = el('div', 'hd'); hd.append(document.createTextNode(a.room + ' '), el('span', '', '→ ' + (b.id === 'owner' ? 'Thomas' : b.room)));
       body.append(hd, el('div', 'msg', m.text)); li.append(av, body); ul.append(li);
@@ -741,8 +827,8 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     if (document.hidden || !script.length) { chatTimer = setTimeout(talk, 4000); return; }
     const ex = script[turn++ % script.length];
     const from = byId(ex.from), to = byId(ex.to);
-    bubble(ex.from, from.room, ex.text, 4500); if (chatterOn) packet(ex.from, ex.to); logChat(ex.from, ex.to, ex.text);
-    if (ex.reply) setTimeout(() => { bubble(ex.to, to.room, ex.reply, 4000); logChat(ex.to, ex.from, ex.reply); }, 5000);
+    bubble(ex.from, from.room, ex.text, 4500); if (chatterOn) packet(ex.from, ex.to); logChat(ex.from, ex.to, ex.text, ex.open);
+    if (ex.reply) setTimeout(() => { bubble(ex.to, to.room, ex.reply, 4000); logChat(ex.to, ex.from, ex.reply, ex.open); }, 5000);
     chatTimer = setTimeout(talk, 30000);
   }
 
@@ -754,6 +840,257 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     if (first && script.length) chatTimer = setTimeout(talk, 3000);
   }
 
+
+  /* ---------- detail drawer and actions ---------- */
+  let sample = null, lastFocus = null, drawerView = null, toastTimer = null;
+  const drawerBg = $('drawer-bg'), drawer = $('drawer');
+  const sqlStr = (v) => "'" + String(v == null ? '' : v).replace(/'/g, "''") + "'";
+  const sqlId = (v) => { const n = Number(v); if (!Number.isInteger(n) || n < 1) throw { message: 'Bad id' }; return n; };
+  function tapify(node, fn, label) {
+    node.tabIndex = 0; node.setAttribute('role', 'button'); if (label) node.setAttribute('aria-label', clip(label, 120));
+    node.addEventListener('click', fn);
+    node.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } });
+  }
+  function actBtn(text, color, fn) { const b = el('button', 'btn ' + color, text); b.type = 'button'; b.addEventListener('click', fn); return b; }
+  function toast(msg, bad) {
+    const t = $('toast'); t.textContent = msg; t.className = 'toast' + (bad ? ' bad' : ''); t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 3800);
+  }
+  async function copyText(text, what) {
+    try { await navigator.clipboard.writeText(text); toast(what + ' copied'); } catch (e) { toast('Could not copy. Select the text and copy it by hand.', true); }
+  }
+  async function runSql(query) {
+    if (!mcp) throw { message: 'Open this page in claude.ai to make changes.' };
+    const r = await mcp.callTool(SB, 'execute_sql', { project_id: PROJECT, query }, { cache: false });
+    return rowsFrom(r.payload);
+  }
+  const why = (err) => { const m = String((err && err.message) || ''); if (err && (err.code === 'not_granted' || err.code === 'consent_required')) return 'Allow Supabase for this page first.'; return m ? clip(m, 140) : 'That did not go through. Try again.'; };
+  async function act(btns, work, okMsg) {
+    btns.forEach((b) => { b.disabled = true; });
+    try { await work(); toast(okMsg); await load(); if (drawerView) drawerView(); }
+    catch (err) { toast(why(err), true); btns.forEach((b) => { b.disabled = false; }); }
+  }
+
+  function openDrawer(view) {
+    if (drawerBg.hidden) lastFocus = document.activeElement;
+    drawerView = view; drawerBg.hidden = false; document.body.style.overflow = 'hidden';
+    view();
+    const first = drawer.querySelector('h3'); if (first) { first.tabIndex = -1; first.focus({ preventScroll: true }); }
+  }
+  function closeDrawer() {
+    drawerBg.hidden = true; drawerView = null; drawer.replaceChildren(); document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  drawerBg.addEventListener('click', (e) => { if (e.target === drawerBg) closeDrawer(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawerBg.hidden) { e.stopPropagation(); closeDrawer(); } }, true);
+  drawer.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const f = [...drawer.querySelectorAll('button, textarea, a[href], [tabindex="0"]')].filter((x) => !x.disabled && x.offsetParent);
+    if (!f.length) return; const a = f[0], z = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+  });
+
+  function frame(opts) {
+    drawer.replaceChildren();
+    const x = el('button', 'x', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); x.addEventListener('click', closeDrawer);
+    const head = el('div', 'dhead'); const av = el('div', 'av' + (opts.sprite ? '' : ' ic'));
+    av.style.backgroundImage = `url(${A}${opts.sprite ? 'sprite-' + opts.sprite : 'ico-' + (opts.icon || 'tasks')}.webp)`;
+    const t = el('div'); const h = el('h3', '', opts.title); h.id = 'd-title'; t.append(h, el('div', 'cls', opts.sub || ''));
+    head.append(av, t);
+    drawer.append(x, head);
+    if (opts.back) { const b = el('button', 'mini', '← ' + opts.back[0]); b.type = 'button'; b.addEventListener('click', () => { drawerView = opts.back[1]; opts.back[1](); }); drawer.insertBefore(b, head); }
+    return drawer;
+  }
+  function meta(items) { const m = el('div', 'dmeta'); items.filter(Boolean).forEach(([t, cls]) => m.append(el('span', cls || '', t))); return m; }
+  function field(label, text, opts = {}) {
+    if (!text) return null;
+    const f = el('div', 'field'); const b = el('b', '', label);
+    if (opts.copy) { const c = el('button', 'mini', 'Copy'); c.type = 'button'; c.addEventListener('click', () => copyText(opts.copyText || text, label)); b.append(c); }
+    f.append(b, el('p', 'txt' + (opts.big ? ' big' : ''), text)); return f;
+  }
+  function addAll(...nodes) { nodes.filter(Boolean).forEach((n) => drawer.append(n)); }
+
+  // Ask Claude about whatever is open. Memoryless: the item travels with the question.
+  function askBox(context, prompts) {
+    const wrap = el('div', 'field ask');
+    const b = el('b', '', 'Ask Claude about this');
+    const ta = el('textarea', 'in'); ta.placeholder = 'For example: ' + prompts[0]; ta.setAttribute('aria-label', 'Your question for Claude');
+    const chips = el('div', 'dacts'); prompts.forEach((q) => { const c = el('button', 'mini', q); c.type = 'button'; c.addEventListener('click', () => { ta.value = q; go(); }); chips.append(c); });
+    const send = actBtn('Ask', 'violet', () => go());
+    const ans = el('p', 'txt ans'); ans.setAttribute('aria-live', 'polite');
+    let ctl = null;
+    async function go() {
+      const q = ta.value.trim(); if (!q) { ta.focus(); return; }
+      if (!sample) { ans.textContent = 'Asking Claude works when this page is opened in claude.ai and allowed to ask Claude.'; return; }
+      if (ctl) ctl.abort(); ctl = new AbortController(); send.disabled = true; ans.textContent = 'Thinking…';
+      const prompt = 'You help Thomas run Elsewhere Supply Co., a small print-on-demand apparel store (dry, kind, slightly tired humor; tees about $30, hoodies about $45; Printify ships in 6 to 10 business days; 0 orders so far, traffic is the main problem). '
+        + 'Answer his question about the item below. Be concrete and short: at most 8 lines, plain text, no markdown headings, no em dashes. If he asks for a rewrite, give the rewrite ready to paste. Never invent sales numbers, reviews or facts.\n\nITEM:\n' + context + '\n\nQUESTION:\n' + q;
+      try { await sample(prompt, { signal: ctl.signal, onText: (u) => { ans.textContent = u.text || 'Thinking…'; } }).then((r) => { ans.textContent = r.text; }); }
+      catch (err) { if (err && err.code === 'cancelled') return; ans.textContent = err && err.code === 'rate_limited' ? 'Claude is busy. Try again in a minute.' : err && err.code === 'not_granted' ? 'This page is not allowed to ask Claude. Allow it from the Permissions menu.' : 'Could not get an answer. Try again.'; }
+      finally { send.disabled = false; }
+    }
+    ta.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) go(); });
+    const row = el('div', 'dacts'); row.append(send);
+    wrap.append(b, chips, ta, row, ans);
+    return wrap;
+  }
+
+  /* posts */
+  function openPosts() { openDrawer(viewPosts); }
+  function viewPosts() {
+    frame({ title: 'Posts to film', sub: 'Planned by the Social Planner. Tap one for its script and caption.', sprite: 'messenger-bot' });
+    const all = (data && data.postlist) || [];
+    const ul = el('ul', 'dlist');
+    if (!all.length) ul.append(el('li', 'empty', 'No posts planned yet.'));
+    all.forEach((x) => {
+      const over = x.status === 'planned' && String(x.day).slice(0, 10) < todayStr();
+      const b = el('button'); b.type = 'button'; b.addEventListener('click', () => { drawerView = () => viewPost(x.id); viewPost(x.id); });
+      const mid = el('span'); mid.append(el('span', 'who', `${x.platform} · ${x.product || ''}`), document.createElement('br'), el('span', 'sub2', x.hook || ''));
+      b.append(img('ico-' + (x.status === 'posted' ? 'chat' : 'energy')), mid, el('span', 'tagr' + (over ? ' late' : ''), x.status === 'planned' ? (over ? 'Late · ' : '') + dayCT(x.day) : x.status === 'posted' ? 'Posted' : 'Skipped'));
+      const li = el('li'); li.append(b); ul.append(li);
+    });
+    addAll(ul);
+  }
+  function openPost(id) { openDrawer(() => viewPost(id)); }
+  function viewPost(id) {
+    const x = ((data && data.postlist) || []).find((p) => p.id === id);
+    if (!x) { frame({ title: 'Post not found', sub: 'It may have been moved. Refresh and try again.', icon: 'energy' }); return; }
+    const over = x.status === 'planned' && String(x.day).slice(0, 10) < todayStr();
+    frame({ title: x.hook || 'Post', sub: `${x.platform} · ${x.product || ''}`, sprite: 'messenger-bot', back: ['All posts', viewPosts] });
+    const tags = String(x.hashtags || '').trim();
+    const full = [x.caption, tags].filter(Boolean).join('\n\n');
+    addAll(
+      meta([[dayCT(x.day), over ? 'late' : 'hot'], [x.format], [x.status === 'planned' ? (over ? 'Late' : 'Planned') : x.status === 'posted' ? 'Posted' : 'Skipped', x.status === 'posted' ? 'ok' : '']]),
+      field('Hook (first second on screen)', x.hook, { big: true, copy: true }),
+      field('Script and shots', x.script, { copy: true }),
+      field('Caption', x.caption, { copy: true, copyText: full }),
+      field('Hashtags', tags, { copy: true }),
+    );
+    const acts = el('div', 'dacts');
+    if (x.status !== 'posted') { const b = actBtn('I posted it', 'green', () => act([b, s2], () => runSql(`select ops.shop_post_mark(${sqlId(x.id)}, 'posted') as r`), 'Marked as posted. Nice.')); var s2 = x.status === 'planned' ? actBtn('Skip this one', 'ghost', () => act([b, s2], () => runSql(`select ops.shop_post_mark(${sqlId(x.id)}, 'skipped') as r`), 'Skipped.')) : actBtn('Put it back on the plan', 'ghost', () => act([b, s2], () => runSql(`select ops.shop_post_mark(${sqlId(x.id)}, 'planned') as r`), 'Back on the plan.')); acts.append(b, s2); }
+    else { const u = actBtn('Undo posted', 'ghost', () => act([u], () => runSql(`select ops.shop_post_mark(${sqlId(x.id)}, 'planned') as r`), 'Back on the plan.')); acts.append(u); }
+    acts.append(actBtn('Copy everything', 'blue', () => copyText([x.hook, x.script, full].filter(Boolean).join('\n\n'), 'Post')));
+    addAll(acts, askBox(`Post for ${x.platform} on ${String(x.day).slice(0, 10)}, product: ${x.product}. Format: ${x.format}.\nHook: ${x.hook}\nScript: ${x.script}\nCaption: ${x.caption}\nHashtags: ${tags}`,
+      ['Give me 3 punchier hooks', 'How do I film this in 10 minutes?', 'Rewrite the caption shorter']));
+  }
+
+  /* tasks (quests) */
+  function openTasks() { openDrawer(viewTasks); }
+  function viewTasks() {
+    frame({ title: 'Waiting on you', sub: 'Approvals and clicks only you can make. Tap one to act on it.', icon: 'strategy' });
+    const open = (data && data.tasks) || [], closed = (data && data.tasks_closed) || [];
+    const list = (rows, done) => { const ul = el('ul', 'dlist'); rows.forEach((t) => { const ag = AGENTS.find((a) => a.id === t.agent);
+      const b = el('button'); b.type = 'button'; b.addEventListener('click', () => { drawerView = () => viewTask(t.id); viewTask(t.id); });
+      const mid = el('span'); mid.append(el('span', 'who', (ag ? ag.room : t.agent) + (t.kind === 'approve' ? ' · approve' : t.kind === 'fyi' ? ' · note' : ' · to do')), document.createElement('br'), el('span', 'sub2', clip(t.item, 140)));
+      b.append(img('ico-' + (QICON[t.kind] || 'tasks')), mid, el('span', 'tagr', done ? (t.status === 'declined' ? 'Said no' : t.status === 'approved' ? 'Approved' : 'Done') : t.priority === 1 ? 'This week' : '+' + (REWARD[t.kind] || 20) + ' XP'));
+      const li = el('li'); li.append(b); ul.append(li); }); return ul; };
+    if (!open.length) addAll(el('p', 'empty', 'Nothing waiting on you. Nice work.')); else addAll(list(open, false));
+    if (closed.length) { const f = el('div', 'field'); f.append(el('b', '', 'Recently closed'), list(closed.slice(0, 6), true)); addAll(f); }
+  }
+  function openTask(id) { openDrawer(() => viewTask(id)); }
+  function viewTask(id) {
+    const t = [...((data && data.tasks) || []), ...((data && data.tasks_closed) || [])].find((x) => x.id === id);
+    if (!t) { frame({ title: 'Quest not found', sub: 'It may already be closed. Refresh and try again.', icon: 'tasks' }); return; }
+    const ag = AGENTS.find((a) => a.id === t.agent);
+    frame({ title: t.kind === 'approve' ? 'Your call' : t.kind === 'fyi' ? 'A note for you' : 'Something to do', sub: `From the ${ag ? ag.room : t.agent} · ${new Date(t.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`, sprite: ag && ag.bot, icon: QICON[t.kind], back: ['Everything waiting', viewTasks] });
+    addAll(meta([[t.priority === 1 ? 'This week' : 'When you can', t.priority === 1 ? 'hot' : ''], t.cost && ['Cost: ' + t.cost], [t.status === 'open' ? 'Open' : t.status, t.status === 'open' ? '' : 'ok']]),
+      field('What it is', t.item, { big: true }), field('Your note', t.thomas_note));
+    const note = el('textarea', 'in'); note.placeholder = 'Optional: add a note the agent will read (for example, "approved, but cap it at $10 a day")'; note.setAttribute('aria-label', 'Note for the agent');
+    const acts = el('div', 'dacts'); const mk = (st, msg) => () => act([...acts.querySelectorAll('button')], () => runSql(`select ops.shop_task_mark(${sqlId(t.id)}, ${sqlStr(st)}, ${sqlStr(note.value.trim())}) as r`), msg);
+    if (t.status === 'open') {
+      if (t.kind === 'approve') acts.append(actBtn('Approve', 'green', mk('approved', 'Approved. The crew picks it up on its next run.')), actBtn('Say no', 'rose', mk('declined', 'Got it. Marked as no.')));
+      else if (t.kind === 'do') acts.append(actBtn('I did it', 'green', mk('done', 'Done. Quest cleared.')), actBtn('Not doing this', 'ghost', mk('declined', 'Dropped.')));
+      else acts.append(actBtn('Got it', 'green', mk('done', 'Noted.')));
+      addAll(note, acts);
+    } else { acts.append(actBtn('Reopen', 'ghost', mk('open', 'Reopened.'))); addAll(acts); }
+    if (ag && t.status === 'open') addAll(el('p', 'hint', `Want a different answer? Send the ${ag.room} a note from its island, or ask Claude below.`));
+    addAll(askBox(`A to-do from the ${ag ? ag.room : t.agent} agent (${t.kind}, cost: ${t.cost || 'not given'}): ${t.item}`,
+      ['What happens if I say yes?', 'Walk me through doing this', 'Is this worth it right now?']));
+  }
+
+  /* ideas */
+  function openIdeas() { openDrawer(viewIdeas); }
+  function viewIdeas() {
+    frame({ title: 'Shirt ideas', sub: 'From the Trend Scout. Like one to have the Shop Designer draw it.', sprite: 'scout-drone' });
+    const all = (data && data.idealist) || [];
+    const ul = el('ul', 'dlist');
+    if (!all.length) ul.append(el('li', 'empty', 'No ideas yet. New ones land Sunday night.'));
+    all.forEach((x) => {
+      const b = el('button'); b.type = 'button'; b.addEventListener('click', () => { drawerView = () => viewIdea(x.id); viewIdea(x.id); });
+      const mid = el('span'); mid.append(el('span', 'who', x.slogan || 'Idea'), document.createElement('br'), el('span', 'sub2', clip(x.concept || x.theme || '', 120)));
+      b.append(img('ico-' + (x.status === 'liked' ? 'crystals' : x.status === 'made' ? 'build' : 'explore')), mid, el('span', 'tagr', !x.status || x.status === 'new' ? 'New' : x.status[0].toUpperCase() + x.status.slice(1)));
+      const li = el('li'); li.append(b); ul.append(li);
+    });
+    const a = el('a', 'btn ghost', 'Open the Idea Board'); a.href = IDEA_BOARD; a.target = '_blank'; a.rel = 'noopener';
+    const row = el('div', 'dacts'); row.append(a);
+    addAll(ul, row);
+  }
+  function viewIdea(id) {
+    const x = ((data && data.idealist) || []).find((i) => i.id === id);
+    if (!x) { frame({ title: 'Idea not found', sub: 'Refresh and try again.', icon: 'explore' }); return; }
+    frame({ title: x.slogan || 'Idea', sub: [x.theme, x.garment].filter(Boolean).join(' · '), sprite: 'scout-drone', back: ['All ideas', viewIdeas] });
+    addAll(meta([[!x.status || x.status === 'new' ? 'New' : x.status, !x.status || x.status === 'new' ? 'hot' : ''], x.score != null && ['Score ' + x.score], x.price && ['$' + x.price], x.colors && [x.colors]]),
+      field('The idea', x.concept), field('Why now', x.why_now), field('Design brief', x.design_brief, { copy: true }), field('Risk check', x.risk),
+      field('Listing title', x.listing_title, { copy: true }), field('Listing description', x.listing_description, { copy: true }), field('Your note', x.thomas_note));
+    const note = el('textarea', 'in'); note.placeholder = 'Optional note for the Trend Scout or Shop Designer'; note.setAttribute('aria-label', 'Note on this idea');
+    const acts = el('div', 'dacts'); const all = () => [...acts.querySelectorAll('button')];
+    const mark = (st, msg) => () => act(all(), () => runSql(`select ops.shop_idea_mark(${sqlId(x.id)}, ${sqlStr(st)}, ${note.value.trim() ? sqlStr(note.value.trim()) : 'null'}) as r`), msg);
+    if (x.status !== 'liked') acts.append(actBtn('Like it', 'green', mark('liked', 'Liked.')));
+    acts.append(actBtn(x.design_requested ? 'Ask for a new version' : 'Design it', 'violet', () => act(all(), () => runSql(`select ops.shop_idea_design(${sqlId(x.id)}, ${note.value.trim() ? sqlStr(note.value.trim()) : 'null'}) as r`), 'Sent to the Shop Designer. It draws on Sunday, or now from the Idea Board.')));
+    if (x.status !== 'passed') acts.append(actBtn('Pass', 'ghost', mark('passed', 'Passed.')));
+    addAll(note, acts, askBox(`Shirt idea "${x.slogan}". Concept: ${x.concept}. Theme: ${x.theme}. Garment: ${x.garment}. Brief: ${x.design_brief}. Risk notes: ${x.risk}.`,
+      ['Would this sell? Be honest', 'Give me 3 alternate slogans', 'Which of my product lines does it fit?']));
+  }
+
+  /* agents: full details, recent work, notes */
+  function openAgent(id, focusNote) { const a = AGENTS.find((x) => x.id === id); if (!a) return; openDrawer(() => viewAgent(id, focusNote)); }
+  function viewAgent(id, focusNote) {
+    const a = AGENTS.find((x) => x.id === id); const ag = agentRow(id); const d = data || {};
+    const L = level(data ? a.xp(data) : 0), st = state(a);
+    frame({ title: ag.name || a.room, sub: `${a.cls} of ${a.place} · ${a.crew} · Level ${L.lv}`, sprite: a.bot });
+    addAll(meta([[stateWord(st), st === 'late' ? 'late' : st === 'work' ? 'ok' : ''], ag.schedule && [ag.schedule], ag.next_run && ['Next: ' + ag.next_run], ag.last_run && ['Last ran ' + dayCT(ag.last_run)]]),
+      field('What it does', ag.role), field('Right now', data ? a.stat(d) : ''), field('Last result', ag.last_result));
+    const mine = (d.feed || []).filter((r) => (ALIAS[String(r.agent).toLowerCase()] || r.agent) === id).slice(0, 6);
+    if (mine.length) { const f = el('div', 'field'); f.append(el('b', '', 'Recent work')); const ul = el('ul', 'ticker'); mine.forEach((r) => { const li = el('li'); const tm = el('time', '', new Date(r.at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })); li.append(tm, el('div', '', r.action)); ul.append(li); }); f.append(ul); addAll(f); }
+    const tasks = (d.tasks || []).filter((t) => t.agent === id);
+    if (tasks.length) { const f = el('div', 'field'); f.append(el('b', '', 'Waiting on you from this agent')); const ul = el('ul', 'dlist'); tasks.forEach((t) => { const b = el('button'); b.type = 'button'; b.addEventListener('click', () => { drawerView = () => viewTask(t.id); viewTask(t.id); }); const mid = el('span'); mid.append(el('span', 'sub2', clip(t.item, 140))); b.append(img('ico-' + (QICON[t.kind] || 'tasks')), mid, el('span', 'tagr', t.kind === 'approve' ? 'Approve' : 'Open')); const li = el('li'); li.append(b); ul.append(li); }); f.append(ul); addAll(f); }
+    if (id === 'socialplan') addAll(actRow([['See every planned post', 'yellow', () => { drawerView = viewPosts; viewPosts(); }]]));
+    if (id === 'trends') addAll(actRow([['See the shirt ideas', 'yellow', () => { drawerView = viewIdeas; viewIdeas(); }]]));
+    // Notes: Elsewhere crew agents read these on their next run and answer. Sidequest crew agents run from their own playbook, so notes go through the Store Chief.
+    if (a.crew !== 'Elsewhere crew') {
+      const f2 = el('div', 'field'); f2.append(el('b', '', 'Talk to this agent'), el('p', 'txt', `The ${a.room} runs with the Sidequest crew and doesn’t read notes from here. Tell the Store Chief what you want; it answers on its next weekday run and can change what the Elsewhere crew does around this agent's work.`));
+      f2.append(actRow([['Message the Store Chief', 'violet', () => { drawerView = () => viewAgent('shopchief', true); viewAgent('shopchief', true); }]]));
+      addAll(f2, askBox(`Agent: ${a.room} (${a.crew}). Job: ${ag.role || ''}. Schedule: ${ag.schedule || ''}. Last result: ${ag.last_result || 'none yet'}. Recent work: ${mine.map((r) => r.action).join(' | ') || 'none yet'}.`, ['What should I ask this agent to focus on?', 'Explain what it did in plain words']));
+      return;
+    }
+    const f = el('div', 'field'); f.append(el('b', '', 'Talk to this agent'));
+    const notes = (d.notes || []).filter((n) => n.agent === id).slice(0, 6).reverse();
+    if (notes.length) { const th = el('div', 'thread'); notes.forEach((n) => { const q = el('div', 'q', n.note); q.append(el('small', '', 'You · ' + new Date(n.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }))); th.append(q); if (n.status === 'answered') { const an = el('div', 'a', n.answer); an.append(el('small', '', a.room + (n.answered_at ? ' · ' + new Date(n.answered_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''))); th.append(an); } else th.append(el('div', 'a', 'Will answer on its next run.')); }); f.append(th); }
+    const ta = el('textarea', 'in'); ta.placeholder = `Tell the ${a.room} what you want. It reads this on its next run and answers here.`; ta.setAttribute('aria-label', 'Note for ' + a.room);
+    const send = actBtn('Send note', 'violet', () => { const v = ta.value.trim(); if (!v) { ta.focus(); return; } act([send], () => runSql(`select ops.shop_note_add(${sqlStr(id)}, ${sqlStr(v)}) as r`), RUN_OF[id] ? 'Sent. Press Run now if you want the answer sooner.' : 'Sent.'); });
+    const row = el('div', 'dacts'); row.append(send); if (RUN_OF[id]) row.append(actBtn('Run now', 'blue', () => runNow(id)));
+    f.append(ta, row); addAll(f);
+    addAll(askBox(`Agent: ${a.room} (${a.crew}). Job: ${ag.role || ''}. Schedule: ${ag.schedule || ''}. Last result: ${ag.last_result || 'none yet'}. Recent work: ${mine.map((r) => r.action).join(' | ') || 'none yet'}.`,
+      ['What should I ask this agent to focus on?', 'Explain what it found in plain words']));
+    if (focusNote) setTimeout(() => ta.focus(), 30);
+  }
+  function actRow(items) { const r = el('div', 'dacts'); items.forEach(([t, c, fn]) => r.append(actBtn(t, c, fn))); return r; }
+
+  async function runNow(id) {
+    const key = RUN_OF[id]; if (!key) return;
+    if (!mcp) { toast('Open this page in claude.ai to start a run.', true); return; }
+    const a = AGENTS.find((x) => x.id === id);
+    try {
+      await mcp.callTool(CCR, 'fire_trigger', { trigger_id: RUNS[key].id, text: `On-demand run requested from Elsewhere HQ for the ${a.room}. Do the full run as usual, and answer every open ops.shop_notes row first.` }, { cache: false });
+      toast(`Started the ${RUNS[key].label}. Results land here in about 10 minutes.`);
+    } catch (err) {
+      toast(err && (err.code === 'not_granted' || err.code === 'consent_required') ? 'Allow Claude Code Remote for this page to start runs.' : err && err.code === 'server_not_connected' ? 'Claude Code Remote is not connected for you.' : 'Could not start the run. Try again.', true);
+    }
+  }
+
+  $('r-ideas-pill').addEventListener('click', openIdeas);
+  $('r-you-pill').addEventListener('click', openTasks);
+
   $('refresh').addEventListener('click', () => load());
   render();
 
@@ -761,7 +1098,8 @@ h1 { margin: 0; font-family: var(--title); font-weight: 800; font-size: clamp(1.
     mcp = m;
     if (!mcp) { problem = ['Open this in claude.ai', 'Elsewhere HQ reads the crew from Supabase and the store from Shopify, which works when you open it in claude.ai with both connectors.']; render(); return; }
     load();
-    setInterval(() => { if (!document.hidden) load(); }, 90000);
+    setInterval(() => { if (!document.hidden && drawerBg.hidden) load(); }, 90000);
+    claude.use('sample').then((sm) => { sample = sm; }, () => {});
   }, () => { problem = ['Could not start', 'Reload the page.']; render(); });
 })();
 </script>

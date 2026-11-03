@@ -30,7 +30,19 @@ Each run writes to Supabase project `taskvfzqgpqxpdifmxru`, schema `ops`, which 
 - `ops.activity`: one line on what it did
 - `ops.shop_tasks`: anything Thomas needs to approve or do
 
-Agents also save a report file in `reports/`. Elsewhere HQ reads `ops` through the Supabase connector and the store through the Shopify connector. It refreshes every 90 seconds and never writes anything.
+Agents also save a report file in `reports/`.
+
+## Elsewhere HQ is interactive
+Tap anything on the HQ and a detail panel opens:
+- **Posts to Film**: the full hook, script and shots, caption and hashtags, with copy buttons. Mark a post as posted or skip it (`ops.shop_post_mark`).
+- **Quest Log and the "for you" pill**: the full request. Approve it, mark it done or say no, and leave a note the agent reads next run (`ops.shop_task_mark`).
+- **Shirt ideas** (the ideas pill): the full brief, risk check and listing copy. Like, Pass or Design it (`ops.shop_idea_mark`, `ops.shop_idea_design`).
+- **Agents** (islands, The Crew, Island Log): role, schedule, recent work, and the quests that agent has waiting on you.
+  - **Talk to this agent** leaves a note in `ops.shop_notes`. The agent answers on its next run, and the answer shows in the same thread.
+  - **Run now** starts that agent's scheduled task (through the Claude Code Remote connector).
+- **Ask Claude about this** sits on every panel. It answers questions about that item right on the page, like "give me 3 punchier hooks" or "is this worth it right now?"
+
+The HQ reads data through the Supabase and Shopify connectors and refreshes every 90 seconds. It only writes through the `ops` functions above.
 
 ## Hard rules
 - Agents never create, edit, publish, price or discount anything in the store on their own. They queue it in `ops.shop_tasks`.
