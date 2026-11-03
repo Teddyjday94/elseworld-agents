@@ -53,6 +53,7 @@ Shopify Payments takes about 2.9% + $0.30. Printify shipping (roughly $4–9 per
 - **TikTok for Business MCP**: ad account, catalog, reporting, Smart+ campaigns.
 - **Gmail MCP**: customer email (drafts only, see rules).
 - **Canva / Artlist / Higgsfield MCPs**: creative assets, mockups, video.
+- **Shirt artwork** is made by the Sidequest crew's Shop Designer with **GPT Image 2.5** (ChatGPT's image model) through Artlist. Thomas chose this on 2026-11-03. It needs Artlist credits: the account had 0 that day, and a design costs about 340 credits for 2 versions at 4K. Any agent that suggests new artwork should assume this model and budget.
 - `social-media-skills:*` skills for content, captions, and scripts for TikTok, Pinterest, and Instagram.
 - Playwright and Chromium for auditing the live storefront.
 
